@@ -1,5 +1,3 @@
-# Instructor shared code on 2022-10-31
-#Pseudo Code Part 2
 #Open your csv file
 commonwords0 = open("words5000.csv", "r")
 import altair
