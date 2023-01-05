@@ -1,0 +1,66 @@
+
+#this code captures the estimates for a pi - for several runs of 1000 throws each
+# recommend myturtle.tracer(12,25) for faster animation
+import turtle
+import random 
+import math
+import altair
+import sys
+sys.setExecutionLimit(60000)
+
+# 1. Make the dartboard
+wn = turtle.Screen()
+flu = turtle.Turtle()
+flu.shape("circle")
+flu.color("black")
+flu.tracer(1000,1000)
+# set the world coordinates so that (0,0) is the middle
+# and the board is 2 by 2. 
+wn.setworldcoordinates(-1,-1,1,1)
+
+# 2. setting up to take data for the historgram
+# this will be a number of estimations but using the same technique 
+# initialize the list that will contain all of the estimates
+hyp_circle = []
+hyp_total = []
+totalpi = []
+
+# A for loop works well here also (then will have the estimate inside this loop).
+
+    # 3. Throw some darts!
+    # Inside of a for loop, we'll simulate a random dart, 
+for i in range(100):     #i want 100 values of pi so i'm putting all my code within a range of 100
+    for n in range(2000): #we want 2000 darts so we choose a range of 2000
+        a = random.uniform(-1,1) 
+        b = random.uniform(-1,1)
+        hyp = (a**2 + b**2)**.5 #this is the equation for the hypotenuse
+        if hyp<=1: #for all hypotenuse (mini radius) values inside the circle
+            hyp_circle.append(hyp) 
+            hyp_total.append(hyp) #these two lines add values to their respective lists
+        else:
+            hyp_total.append(hyp) #we want all values within the total list. there might be an easier way to do this
+                                    #but this is what worked for me
+
+        # 4. Using the number in circle and total, 
+        # calculate the percentage that landed in the circle
+    numincircle = len(hyp_circle) #adding up how many landed in the circle
+    numtotal = len(hyp_total) #adding up total darts (we know it's 2000 but no hardcoding!)
+
+    
+    p_incircle = (numincircle/numtotal) #calculating percentage
+    pi = p_incircle*4 #multiplying by 4 to approximate pi
+        #5 append each estimate to the list of estimates
+    totalpi.append(pi) #we then add each estimate to our list
+print(totalpi)
+    
+    
+# 6 plot a histogram of the estimates using altair
+data = altair.Data(totalpi = totalpi)
+chart = altair.Chart(data)
+mark = chart.mark_bar()
+Y = altair.Axis('totalpi:N', bin=True)
+X = altair.Axis('count()')
+enc = mark.encode(x=Y, y=X)
+enc.display() #i copied all this code from the project we used kiva data for 
+
+#done!
