@@ -1,0 +1,42 @@
+    #file prep:
+file = open("AAPL_train.csv", "r")
+newfile = file.readlines()
+#print(newfile)
+newfile.pop(0)
+newfile.pop(-1) #gotta look at your data while debugging. 
+#there was a a/n at the very end that was messing up the split later on
+
+    #altair prep:
+import altair 
+
+    #initializing lists:
+datelist = []
+openlist = []
+highlist = []
+lowlist = []
+closelist = []
+adjcloselist = []
+vollist = []
+difference = [] 
+
+
+for aline in newfile:
+    splitfile = aline.split(",")
+    datelist.append(splitfile[0])
+    openlist.append(float(splitfile[1]))
+    highlist.append(float(splitfile[2]))
+    lowlist.append(float(splitfile[3]))
+    closelist.append(float(splitfile[4]))
+    adjcloselist.append(float(splitfile[5]))
+    vollist.append(int(splitfile[6]))
+    
+days = range(len(adjcloselist))
+print("x vals:", days)
+print("y vals:", adjcloselist)
+    #graphing it:
+
+data = altair.Data(days=days, adjusted_close = adjcloselist)
+chart = altair.Chart(data)
+mark = chart.mark_line()
+enc = mark.encode(x = 'days', y = 'adjusted_close')
+enc.display()
