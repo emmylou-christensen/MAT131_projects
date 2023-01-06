@@ -1,0 +1,11 @@
+#In this project, I used data taken of Apple stock over the course of 1000 days. This project consists of 3 files.
+
+
+#File 1: closing price graph
+#Using the altair module and a line graph, I graphed the adjusted closing price of Apple stock over the course of the 1000 days.
+
+#File 2: day-to-day fluxuation
+#Using the altair module and a line graph, I graphed how the stock's closing price changed from day to day. 
+
+#File 3: 
+#Using the altair module and a histogram, I graphed the distribution of the daily changes, resulting in a roughly bell-shaped curve. 
