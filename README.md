@@ -1,4 +1,4 @@
- MATH131_projects
+# MATH131_projects
 
 Welcome to a short collection of some of the coding projects I've completed over the past year! 
 
