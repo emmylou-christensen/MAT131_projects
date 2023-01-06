@@ -1,14 +1,17 @@
-
 #this code captures the estimates for a pi - for several runs of 1000 throws each
-# recommend myturtle.tracer(12,25) for faster animation
+
+#set-up
 import turtle
 import random 
 import math
 import altair
 import sys
 sys.setExecutionLimit(60000)
+hyp_circle = []
+hyp_total = []
+totalpi = []
 
-# 1. Make the dartboard
+#make dartboard
 wn = turtle.Screen()
 flu = turtle.Turtle()
 flu.shape("circle")
@@ -18,17 +21,9 @@ flu.tracer(1000,1000)
 # and the board is 2 by 2. 
 wn.setworldcoordinates(-1,-1,1,1)
 
-# 2. setting up to take data for the historgram
-# this will be a number of estimations but using the same technique 
-# initialize the list that will contain all of the estimates
-hyp_circle = []
-hyp_total = []
-totalpi = []
 
-# A for loop works well here also (then will have the estimate inside this loop).
-
-    # 3. Throw some darts!
-    # Inside of a for loop, we'll simulate a random dart, 
+#dart simulation
+     
 for i in range(100):     #i want 100 values of pi so i'm putting all my code within a range of 100
     for n in range(2000): #we want 2000 darts so we choose a range of 2000
         a = random.uniform(-1,1) 
@@ -41,20 +36,18 @@ for i in range(100):     #i want 100 values of pi so i'm putting all my code wit
             hyp_total.append(hyp) #we want all values within the total list. there might be an easier way to do this
                                     #but this is what worked for me
 
-        # 4. Using the number in circle and total, 
-        # calculate the percentage that landed in the circle
+#calculating percentage that landed in circle
     numincircle = len(hyp_circle) #adding up how many landed in the circle
     numtotal = len(hyp_total) #adding up total darts (we know it's 2000 but no hardcoding!)
 
     
     p_incircle = (numincircle/numtotal) #calculating percentage
     pi = p_incircle*4 #multiplying by 4 to approximate pi
-        #5 append each estimate to the list of estimates
     totalpi.append(pi) #we then add each estimate to our list
 print(totalpi)
     
     
-# 6 plot a histogram of the estimates using altair
+#histogram
 data = altair.Data(totalpi = totalpi)
 chart = altair.Chart(data)
 mark = chart.mark_bar()
