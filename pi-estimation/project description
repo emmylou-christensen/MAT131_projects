@@ -1,6 +1,6 @@
 #In this project, I used knowledge of trigonometry to create a simulation that would approximate the value of pi. 
 
-#Using the turtle module, I created a 2x2 window and a unit circle nestled inside that window. The visual I was trying to create was one of a dartboard.
+#Using the turtle module, I created a 2x2 window with a unit circle nestled inside that window. The visual I was trying to create was one of a dartboard.
 #From there, I used a random number generator and the turtle function to simulate 1000 "darts" being thrown at the dartboard. 
 
 #With the area of the unit circle being pi and the area the 2x2 window being 4, I was able to create the following ratio:
