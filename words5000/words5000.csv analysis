@@ -1,22 +1,19 @@
-#Open your csv file
+#file and list prep
 commonwords0 = open("words5000.csv", "r")
 import altair
 import math
-#initialize your five lists. 
 rank = []
 word = []
 speech = []
 freq = []
-disp = [] 
+disp = [] #all lists are initialized 
 sumfreq = 0
 sumfreq10 = 0
 sumfreqlast10 = 0
-#Here read the data from the file. 
-commonwords = commonwords0.readlines()
-#Here we take away the header using pop.
-commonwords.pop(0)
-# Now we go line by line through the file
+commonwords = commonwords0.readlines() #read lines
+commonwords.pop(0) #take away the header
 
+#split the lines
 for aline in commonwords:
     splitfile = aline.split(",")
     rank.append(int(splitfile[0])) #this changes the string to a set of integers because they need to be whole numbers
@@ -24,7 +21,9 @@ for aline in commonwords:
     speech.append(splitfile[2])
     freq.append(int(splitfile[3])) #again this changes to an integer bc it's a number
     disp.append(float(splitfile[4]))
-# Now we need the sum of the frequencies for the first 10 items, and the whole list.  Note freq comes in as string so use int to get to a number instead    
+
+
+#find frequencies
 
 #TOTAL FREQUENCIES:
 for w in freq:
@@ -45,27 +44,26 @@ for w in freqlast10:
 print("The sum of the frequencies of the last 10 items is", sumfreqlast10)
 
 print("")
-#set up the necessary initial values for top 10 bottom 10 and total.
-# Now we calculate the percentages:
+
+#calculate percentages
 top_10 = (int(sumfreq10) / sumfreq) 
 print("The total usage percentage for the top 10 words in the list is", top_10)
 
 bottom_10 = (int(sumfreqlast10) / sumfreq)
 print("The total usage percentage for the bottom 10 words in the list is", bottom_10)
 
+#graph prep
 data1 = altair.Data(rank=rank, freq=freq)
 chart1 = altair.Chart(data1)
 mark1 = chart1.mark_point()
 enc1 = mark1.encode(x='rank', y = 'freq')
 enc1.display()
 
-# Once you are done plotting this original data, convert the rank and frequency to log base 10 using the math module
+#LOG 
 
-# initialize two empty lists where our logs calculations will go 
+#initialize lists
 logrank = []
-logfreq = []
-# go through the lists of frequencies and numbers,
-#taking the log of each and appending the new log list. 
+logfreq = [] 
  
 for alls in rank:
     logrank.append(math.log(alls, 10))    
@@ -73,7 +71,8 @@ for alls in freq:
     logfreq.append(math.log(alls, 10))
 #print(logrank)
 #print(logfreq)
-# now plot these values in Altair as a scatter plot *** note you can use the same altair code above but just change the data set used for the chart 
+
+#graph the adjusted data
 data2 = altair.Data(logrank=logrank, logfreq=logfreq)
 chart1 = altair.Chart(data2)
 mark1 = chart1.mark_point()
